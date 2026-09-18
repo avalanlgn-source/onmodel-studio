@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mannequin to Model</title>
+<meta name="description" content="AI on-model imagery: your actual garment, one consistent model, four to five frames per product.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mannequin to Model">
+<meta property="og:description" content="AI on-model imagery: your actual garment, one consistent model, four to five frames per product.">
+<meta property="og:image" content="https://avalanlgn-source.github.io/onmodel-studio/img/hf4_lezhak_veer.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  img { max-width: 100%; }
+
+  :root {
+    color-scheme: light dark;
+    --ground: #EFEEEA;
+    --surface: #FFFFFF;
+    --ink: #16150F;
+    --muted: #6A675C;
+    --accent: #8A6A2B;
+    --line: #DBD8D0;
+    --frame: #E4E1D9;
+
+    --display: "Syne", "Helvetica Neue", Arial, sans-serif;
+    --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #121211;
+      --surface: #1B1B19;
+      --ink: #EDEBE4;
+      --muted: #9C988C;
+      --accent: #C9A45C;
+      --line: #2C2B27;
+      --frame: #232321;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #121211;
+    --surface: #1B1B19;
+    --ink: #EDEBE4;
+    --muted: #9C988C;
+    --accent: #C9A45C;
+    --line: #2C2B27;
+    --frame: #232321;
+  }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 4.5rem) clamp(1.1rem, 4vw, 2.5rem) 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 7vw, 5.5rem);
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: clamp(1.8rem, 4vw, 2.6rem);
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.3rem, 1.2rem + 4.4vw, 4.1rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .lede {
+    max-width: 58ch;
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.18rem);
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .lede strong { color: var(--ink); font-weight: 500; }
+
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.6rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .facts li::before {
+    content: "— ";
+    color: var(--accent);
+  }
+
+  section.series {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+  }
+
+  .series-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6rem 1.5rem;
+  }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(1.35rem, 1.1rem + 1vw, 1.9rem);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .count {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  .pair {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(0.6rem, 1.6vw, 1.1rem);
+  }
+
+  @media (max-width: 620px) {
+    .pair { grid-template-columns: 1fr; }
+  }
+
+  figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--frame);
+    border: 1px solid var(--line);
+  }
+
+  figcaption {
+    font-family: var(--mono);
+    font-size: 0.73rem;
+    line-height: 1.5;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  .held {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--ink);
+    border-left: 2px solid var(--accent);
+    padding: 0.2rem 0 0.2rem 0.9rem;
+    max-width: 68ch;
+  }
+
+  .held em {
+    color: var(--muted);
+    font-style: normal;
+  }
+
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(1.4rem, 3vw, 2.4rem);
+  }
+
+  .block h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.02rem;
+    letter-spacing: 0.01em;
+    margin: 0 0 0.5rem;
+  }
+
+  .block p, .block li {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin: 0 0 0.6rem;
+  }
+
+  .block ol, .block ul {
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+
+  .block li { margin-bottom: 0.45rem; }
+
+  .divider {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 0;
+  }
+
+  .note {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: clamp(1.1rem, 2.5vw, 1.6rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .note p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--muted);
+    max-width: 70ch;
+  }
+
+  .note p:first-of-type { color: var(--ink); }
+
+  footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1.6rem;
+    font-size: 0.86rem;
+    color: var(--muted);
+  }
+
+  footer .avail {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--ink);
+  }
+
+  a { color: var(--accent); }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">AI on-model imagery · e-commerce production</p>
+    <h1>Mannequin to Model</h1>
+    <p class="lede">I put <strong>your actual garment</strong> on a photorealistic model and deliver a set of frames that read as ordinary studio photography — same model, same light, every angle. The piece stays the piece: cut, colour, hardware and styling are reproduced, not reinterpreted.</p>
+    <ul class="facts">
+      <li>4–5 frames per product</li>
+      <li>One consistent model across the set</li>
+      <li>Input: mannequin, flat lay or on-model shot</li>
+      <li>Ongoing volume work</li>
+    </ul>
+  </header>
+
+  <section class="series">
+    <div class="series-head">
+      <h2>Resort set · navy maillot</h2>
+      <span class="count">Series 01 · 2 of 5 frames shown</span>
+    </div>
+    <div class="pair">
+      <figure>
+        <img src="img/hf4_lezhak_veer.jpg" alt="Model in a navy plunge swimsuit with a gold buckle, reclining on a yacht daybed, holding a blue lace fan, wearing a white wide-brim hat.">
+        <figcaption>Reclining · full styling visible · golden hour</figcaption>
+      </figure>
+      <figure>
+        <img src="img/hf4_lezhak_ofitsiant.jpg" alt="The same model in the same navy swimsuit on the same daybed, a steward walking past with a drinks tray.">
+        <figcaption>Same set, wider frame · second subject in shot</figcaption>
+      </figure>
+    </div>
+    <p class="held">Reproduced from the source images: plunge maillot with gold knot buckle · white-to-navy ombré sarong · blue lace fan · wide-brim straw hat · navy-and-white striped tote · navy croc-embossed Dior slides with CD hardware. <em>One item drifted — the sunglasses came back white instead of gold.</em></p>
+  </section>
+
+  <section class="series">
+    <div class="series-head">
+      <h2>Two-piece · all-over print</h2>
+      <span class="count">Series 02 · print-limit demonstration</span>
+    </div>
+    <div class="pair">
+      <figure>
+        <img src="img/hf2_prichal_oborot.jpg" alt="Model on a marina dock in a pink and orange printed crop top and mini skirt, holding a yellow clutch, a deckhand offering his hand." loading="lazy">
+        <figcaption>Dock · looking back over the shoulder</figcaption>
+      </figure>
+      <figure>
+        <img src="img/hf2_prichal_shag.jpg" alt="The same model mid-step on the dock in the same printed two-piece with yellow heeled mules and a yellow clutch." loading="lazy">
+        <figcaption>Same set, mid-step · full silhouette</figcaption>
+      </figure>
+    </div>
+    <p class="held">Silhouette, palette and styling hold — crop top, pleated mini, yellow clutch, yellow heeled mules, rose-tinted sunglasses. <em>The print itself is re-drawn rather than copied: an intricate all-over pattern is the one thing generation approximates. For pieces like this I composite the real artwork onto the rendered garment as a separate pass, which is quoted as extra time.</em></p>
+  </section>
+
+  <section class="series">
+    <div class="series-head">
+      <h2>Silk slip · lakeside</h2>
+      <span class="count">Series 03 · two focal lengths</span>
+    </div>
+    <div class="pair">
+      <figure>
+        <img src="img/hf1_como_coral_vzglyad.jpg" alt="Model in a coral silk slip dress at a lakeside table, a man seated with his back to camera, mountains behind." loading="lazy">
+        <figcaption>Mid shot · fabric sheen and drape at the bodice</figcaption>
+      </figure>
+      <figure>
+        <img src="img/hf1_como_coral_dalniy.jpg" alt="Wider view of the same lakeside terrace, the same model in the same coral slip dress seated at the table." loading="lazy">
+        <figcaption>Wide · same face, same garment, new distance</figcaption>
+      </figure>
+    </div>
+    <p class="held">A plain, unstructured garment is the easiest case and the most revealing one: what has to survive is the drape, the sheen of the silk and the exact shade of coral across two focal lengths. <em>Both frames come from one session, with no retouching between them.</em></p>
+  </section>
+
+  <hr class="divider">
+
+  <div class="cols">
+    <div class="block">
+      <h3>How a product runs</h3>
+      <ol>
+        <li>You send the garment — on a mannequin, flat, or shot on someone else — plus any model, footwear and setting notes.</li>
+        <li>I build the scene and place the piece on the agreed model.</li>
+        <li>You get 4–5 frames per product in one lighting family, ready for a product page.</li>
+      </ol>
+    </div>
+    <div class="block">
+      <h3>What holds, and what doesn't</h3>
+      <ul>
+        <li><strong>Holds:</strong> cut, drape, colour, hardware, closures, trims, stripes and blocked colour.</li>
+        <li><strong>Needs a second pass:</strong> intricate all-over prints, and any small printed text or logo — legible-but-wrong lettering is the fastest way to lose a customer's trust, so those frames get composited or cut.</li>
+        <li><strong>Quality control:</strong> roughly one frame in four is rejected in-house for face drift before anything reaches you.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <p>Every image on this page is AI-generated. The people in them are not real.</p>
+  </div>
+
+  <footer>
+    <span class="avail">Available for ongoing production work</span>
+    <span>Consistent-model e-commerce imagery · garment transfer · lifestyle sets</span>
+  </footer>
+
+</div>
+</body>
+</html>
