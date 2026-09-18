@@ -155,6 +155,34 @@
     letter-spacing: 0.04em;
   }
 
+  .source {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .source-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .source-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .source-row img {
+    height: 116px;
+    width: auto;
+    object-fit: contain;
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+
   .pair {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -299,6 +327,15 @@
       <h2>Resort set · navy maillot</h2>
       <span class="count">Series 01 · 2 of 5 frames shown</span>
     </div>
+    <div class="source">
+      <span class="source-label">Supplied pieces</span>
+      <div class="source-row">
+        <img src="img/src/navy_suit.jpg" alt="Navy plunge maillot with a gold knot buckle at the waist.">
+        <img src="img/src/navy_fan.jpg" alt="Folding fan in navy blue lace.">
+        <img src="img/src/navy_tote.jpg" alt="Navy and white striped tote bag with navy leather handles.">
+        <img src="img/src/navy_slides.jpg" alt="Navy croc-embossed slides with gold CD hardware.">
+      </div>
+    </div>
     <div class="pair">
       <figure>
         <img src="img/hf4_lezhak_veer.jpg" alt="Model in a navy plunge swimsuit with a gold buckle, reclining on a yacht daybed, holding a blue lace fan, wearing a white wide-brim hat.">
@@ -317,6 +354,15 @@
       <h2>Two-piece · all-over print</h2>
       <span class="count">Series 02 · print-limit demonstration</span>
     </div>
+    <div class="source">
+      <span class="source-label">Supplied pieces</span>
+      <div class="source-row">
+        <img src="img/src/pucci_top.jpg" alt="Halter top in a pink, orange and yellow geometric print.">
+        <img src="img/src/pucci_skirt.jpg" alt="Pleated mini skirt in a matching swirled print.">
+        <img src="img/src/pucci_bag.jpg" alt="Yellow leather clutch with gold hardware.">
+        <img src="img/src/pucci_shoes.jpg" alt="Yellow peep-toe heeled mules.">
+      </div>
+    </div>
     <div class="pair">
       <figure>
         <img src="img/hf2_prichal_oborot.jpg" alt="Model on a marina dock in a pink and orange printed crop top and mini skirt, holding a yellow clutch, a deckhand offering his hand." loading="lazy">
@@ -333,7 +379,7 @@
   <section class="series">
     <div class="series-head">
       <h2>Silk slip · lakeside</h2>
-      <span class="count">Series 03 · two focal lengths</span>
+      <span class="count">Series 03 · no supplied garment</span>
     </div>
     <div class="pair">
       <figure>
@@ -345,7 +391,7 @@
         <figcaption>Wide · same face, same garment, new distance</figcaption>
       </figure>
     </div>
-    <p class="held">A plain, unstructured garment is the easiest case and the most revealing one: what has to survive is the drape, the sheen of the silk and the exact shade of coral across two focal lengths. <em>Both frames come from one session, with no retouching between them.</em></p>
+    <p class="held">This one had no garment to match — the dress was built from a written spec, so it shows the other half of the job: one face, one silhouette and one lighting setup holding across two focal lengths in a lifestyle setting. <em>Both frames come from a single session, with no retouching between them.</em></p>
   </section>
 
   <hr class="divider">
